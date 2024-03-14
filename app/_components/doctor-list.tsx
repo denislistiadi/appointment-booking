@@ -34,7 +34,7 @@ function DoctorList() {
   const { data, loading } = useDoctorList();
 
   return (
-    <div className="mb-10 mx-auto max-w-screen-xl px-4 pb-8 sm:px-6 sm:pb-12 lg:px-8 lg:pb-16">
+    <div className="mb-5 mx-auto max-w-screen-xl px-4 pb-8 sm:px-6 sm:pb-12 lg:px-8 lg:pb-16">
       <h2 className="font-bold text-xl pb-6">Popular Doctors</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {data.map((item: IDoctor) => (
