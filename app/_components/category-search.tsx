@@ -3,9 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import GlobalApi from "../_utils/GlobalApi";
+import React from "react";
+// import GlobalApi from "../_utils/GlobalApi";
 import Image from "next/image";
+import { useCategories } from "@/hooks/useCategories";
 
 interface IIcon {
   data: {
@@ -26,16 +27,18 @@ interface ICategory {
 }
 
 function CategorySearch() {
-  const [categoryList, setCategoryList] = useState([]);
-  const getCategoryList = () => {
-    GlobalApi.getCategory().then((resp) => {
-      setCategoryList(resp.data.data);
-    });
-  };
+  const { data: categories } = useCategories();
 
-  useEffect(() => {
-    getCategoryList();
-  }, []);
+  // const [categoryList, setCategoryList] = useState([]);
+  // const getCategoryList = () => {
+  //   GlobalApi.getCategory().then((resp) => {
+  //     setCategoryList(resp.data.data);
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   getCategoryList();
+  // }, []);
 
   return (
     <div className="mb-10 px-4 items-center flex flex-col gap-2">
@@ -54,7 +57,7 @@ function CategorySearch() {
       </div>
 
       <div className="mt-4 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {categoryList.map((item: ICategory) => (
+        {categories.map((item: ICategory) => (
           <div
             key={item.id}
             className="flex flex-col text-center gap-2 items-center cursor-pointer p-5 bg-blue-50 rounded-lg hover:scale-105 transition-all ease-in-out"
@@ -66,7 +69,9 @@ function CategorySearch() {
               height={40}
               src={item.attributes.Icon.data.attributes.url}
             />
-            <label className="text-sm text-blue-500 select-none cursor-pointer">{item.attributes.Name}</label>
+            <label className="text-sm text-blue-500 select-none cursor-pointer">
+              {item.attributes.Name}
+            </label>
           </div>
         ))}
       </div>
